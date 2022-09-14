@@ -14,12 +14,13 @@ for (var i = 0; i < 1000000; i++)
     var dict = (IDictionary<string, string>)propGetMethod.Invoke(homeController, Array.Empty<object>());
 }
 
-Console.WriteLine(stopwatch.Elapsed);
+Console.WriteLine($"Reflection method speed performance: {stopwatch.Elapsed.Milliseconds} milliseconds");
 
 stopwatch = Stopwatch.StartNew();
-var deleg = (Func<HomeController, IDictionary<string, string>>)propGetMethod.CreateDelegate(typeof(Func<HomeController, IDictionary<string, string>>));
+var deleg = PropertyHelper<HomeController>.MakeFastProperty<IDictionary<string, string>>(prop);
 for (var i = 0; i < 1000000; i++)
 {
     var dict = deleg(homeController);
 }
-Console.WriteLine(stopwatch.Elapsed);
+
+Console.WriteLine($"Delegated method speed performance: {stopwatch.Elapsed.Milliseconds} milliseconds");
