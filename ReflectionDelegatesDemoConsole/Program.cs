@@ -14,7 +14,7 @@ for (var i = 0; i < 1000000; i++)
     var dict = (IDictionary<string, string>)propGetMethod.Invoke(homeController, Array.Empty<object>());
 }
 
-Console.WriteLine($"Reflection method speed performance: {stopwatch.Elapsed.Milliseconds} milliseconds");
+Console.WriteLine($"Reflection method speed performance: {stopwatch.Elapsed.Milliseconds} seconds");
 
 stopwatch = Stopwatch.StartNew();
 var deleg = PropertyHelper<HomeController>.MakeFastProperty<IDictionary<string, string>>(prop);
